@@ -17,56 +17,18 @@ Long research runs can lose completed work after a crash. Reports can also cite 
 - **Bounded repair:** preserve verified paragraphs and repair answers and citations from current audit feedback, with at most two repair rounds and two targeted gap tasks within shared budgets.
 - **Bounded execution:** shared call, token, task-attempt and time budgets constrain concurrent researchers. Reports retain acceptance checks and inspectable failure records.
 
-## Architecture
-
-The supported entry point runs a local LangGraph workflow: the supervisor delegates research tasks, the durable runtime executes researcher subgraphs, and the reporting pipeline plans, audits and repairs answers against fixed question requirements.
-
 ```mermaid
-flowchart TB
-    Q[Research question]
-    subgraph Local[Local execution · Python / LangGraph]
-        Entry["Entry point · run_research<br/>Configuration / shared budget / acceptance"]
-        Brief["Research brief and question requirements<br/>Fixed before examining evidence"]
-        Supervisor["Supervisor orchestration<br/>Delegate research / aggregate results"]
-        subgraph Runtime[Durable research task runtime]
-            Scheduler["DAG scheduler<br/>Dependencies / bounded concurrency / retries / timeouts"]
-            Researcher["Researcher subgraph<br/>Search / read / compress findings"]
-        end
-        subgraph Reporting[Question-oriented reporting pipeline]
-            Plan["Answer planning and draft<br/>Requirements / Evidence IDs / answer gaps"]
-            Audit["Report audit<br/>Paragraph support / question coverage"]
-            Repair["Bounded feedback repair<br/>Preserve verified prose / fix answers and citations"]
-            Render["Citation rendering and source audit<br/>Resolve sources from Evidence IDs"]
-        end
-        Store[("SQLite · runtime.db<br/>Task states and results / Documents / Evidence")]
-        Shared["Shared execution support<br/>RunBudget / model configuration / event logging"]
-        Events[("events.jsonl<br/>Execution events / audit feedback / usage")]
-    end
-    Sources[Search service / local corpus]
-    LLM[Configured model services]
-    Output["Report and acceptance summary<br/>report.md / summary.json"]
-
-    Q --> Entry --> Brief --> Supervisor
-    Supervisor <-->|ResearchTask / task results| Scheduler
-    Scheduler --> Researcher
-    Researcher --> Sources
-    Researcher -->|Persist retrieved evidence| Store
-    Scheduler <-->|Commit results / restore successful tasks| Store
-    Supervisor -->|Research complete| Plan
-    Brief -->|Fixed requirements| Plan
-    Store -->|Current evidence| Plan
-    Plan --> Audit --> Render
-    Audit -. Audit feedback .-> Repair
-    Repair -->|Re-audit| Audit
-    Plan -. Answer gap search .-> Scheduler
-    Repair -. Targeted gap search .-> Scheduler
-    Render --> Output
-    Runtime & Reporting -. Shared limits and services .-> Shared
-    Shared --> LLM
-    Shared --> Events
+flowchart LR
+    Q[Question] --> T[Research task DAG]
+    T --> S[(SQLite task results + evidence)]
+    Q --> C[Stable question requirements]
+    S --> P[Evidence-bound report draft]
+    C --> P
+    P --> R[Paragraph support + coverage audit]
+    R --> A[Report + rendered citations]
+    R -. bounded gap search and repair .-> T
+    S -. reuse committed tasks .-> T
 ```
-
-Groups represent modules within one process. Solid arrows show primary calls or data relationships; dotted arrows show feedback or shared support relationships. Orchestration, research and reporting share model configuration, event logging and in-memory budgets, with at most two repair rounds and two total targeted gap tasks across planning and repair. Each stage logs execution and audit events; the runner saves the acceptance summary.
 
 Recovery applies to research tasks. Whole-session LangGraph recovery and exactly-once external API calls are outside its guarantee. Evidence lineage establishes where a statement came from; semantic support remains a fallible model judgment. [Architecture and decisions](docs/project_overview.md).
 
