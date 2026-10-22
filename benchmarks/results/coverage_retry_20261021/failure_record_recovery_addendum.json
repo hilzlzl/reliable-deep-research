@@ -1,0 +1,19 @@
+{
+  "action": "Offline recovery of a failed runner record; no model calls or status change",
+  "selected_attempt": "coverage_v2:2:agent_02",
+  "record": "artifacts/coverage_retry_20261021/generation/current_repeat_2/coverage_v2/runner_failures/agent_02/summary.json",
+  "original_record_sha256": "a37e4d7fc3bbe27527b175604bc2cfb5d344f3a497a828c5a9f0de4678ea98d9",
+  "recovered_record_sha256": "b797c0b318bed413d2ed056b1b3906a35c5cc7be59d73049c38557059a2f89ac",
+  "event_log_sha256": "2389152a78e3379575bcd42a5957345ccb84aca30e06c3ad338338b0dae9094b",
+  "underlying_failure": "No persisted evidence after a timed-out task and retry",
+  "secondary_bug": "grounding_acceptance_error compares cited_sources=None with integer",
+  "recovered_counters": {
+    "llm_calls": 15,
+    "search_calls": 3,
+    "task_attempts": 2,
+    "estimated_prompt_tokens": 25498,
+    "observed_completion_tokens": 2453
+  },
+  "unchanged_status": "failed",
+  "extra_api_calls": 0
+}

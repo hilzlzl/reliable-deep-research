@@ -1,0 +1,27 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install locked development environment
+        run: uv sync --frozen --python 3.11 --extra dev
+      - name: Run offline tests
+        run: uv run --frozen --extra dev python -m pytest -q
+      - name: Run deterministic demo
+        run: uv run --frozen python -m experiments.reliability.reliability_demo
+      - name: Verify published numeric results
+        run: uv run --frozen python -m experiments.evaluation.verify_release_results
+      - name: Build distribution
+        run: uv build

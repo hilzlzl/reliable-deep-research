@@ -1,0 +1,27 @@
+{
+  "type": "Post-hoc evaluator ID-format recovery, frozen before call",
+  "selected_run": "baseline:1:app_03",
+  "selection": "Sole unjudged report; selection based only on repeated invalid IDs, never verdicts",
+  "finding": "Model copied claim-0b438d65e7eb as claim-0b438d65f3c; other4IDs and3point IDs were present",
+  "change": "Only replace five opaque sampled-claim hash identifiers with bijective short IDs in the judge input, then map output IDs back; no report/statement/source/reference/instruction/model/setting changes",
+  "claim_id_bijection": {
+    "claim-b5f38a05a875": "claim-1",
+    "claim-811afe7e8d7f": "claim-2",
+    "claim-0b438d65e7eb": "claim-3",
+    "claim-3f417ed65f3c": "claim-4",
+    "claim-9d5128e08cbd": "claim-5"
+  },
+  "sample_payload_sha256": "d3a946ba73ca14fe346bfd51b7feb326dee98c44fceb9d111a75bdc3d6e2482c",
+  "source_audit_sha256": "af78d09e044b925bc1da53e4c8ac83abc6ce243038e475f2b808a9dcf70828bd",
+  "controller_sha256": "48361f1a745f482f64c563897f526b6247d050974c9412d618a50b3b6fc7773f",
+  "preserved_judgments": 160,
+  "extra_requests_allowed": 1,
+  "generation_reruns": 0,
+  "recorded_at_unix": 1792581087.6979272,
+  "state": "completed",
+  "all_eligible_judged": true,
+  "prior160judgments_unchanged": true,
+  "local_controller_fix": "A Counter(mapping) assertion incorrectly interpreted mapping values as counts. Offline validation against the mapping keys confirmed all5shortIDs and all3pointIDs are exact; saved valid model response mapped bijectively without any further API request.",
+  "saved_raw_judgment_sha256": "5d9bb1a9abaeece46c116033d38d40a19dbc49214fa2938cd9f26f853c796f2b",
+  "offline_finalizer_sha256": "37765025c38e89d7e0169d9d9e8415e498f209cef15cef7301eef06c4d691b49"
+}

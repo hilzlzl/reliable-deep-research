@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "scope": "Task-level SQLite recovery after os._exit; not LangGraph graph-checkpoint recovery or exactly-once external API execution.",
+  "source_sha256": {
+    "formal_experiment/fault_matrix_v2/fault_matrix.json": "2a7e236c98b0c6bc3de0c062df6fabb724b60c0c6c9f10fbbaa9c91190282a4e",
+    "process_recovery_formal_20261019/evaluation.json": "b1257e36a3354ce1c37640c09863bb17ff7d67598ae55117f87ac92b34f0d4c9"
+  },
+  "fault_matrix": {
+    "transient_error": {
+      "trials": 30,
+      "succeeded": 30,
+      "expected_outcome_matches": 30
+    },
+    "transient_timeout": {
+      "trials": 30,
+      "succeeded": 30,
+      "expected_outcome_matches": 30
+    },
+    "persistent_error": {
+      "trials": 30,
+      "succeeded": 0,
+      "expected_outcome_matches": 30
+    },
+    "persistent_timeout": {
+      "trials": 30,
+      "succeeded": 0,
+      "expected_outcome_matches": 30
+    }
+  },
+  "process_recovery": {
+    "trials_per_scenario_per_mode": 20,
+    "summary": {
+      "after_completed_task": {
+        "baseline": {
+          "trials": 20,
+          "recovered": 20,
+          "mean_root_worker_calls": 2,
+          "mean_resume_seconds": 0.37,
+          "duplicate_completed_root_calls": 20,
+          "stale_evidence_records": null,
+          "stale_claim_records": null
+        },
+        "reliable": {
+          "trials": 20,
+          "recovered": 20,
+          "mean_root_worker_calls": 1,
+          "mean_resume_seconds": 0.412,
+          "duplicate_completed_root_calls": 0,
+          "stale_evidence_records": null,
+          "stale_claim_records": null
+        }
+      },
+      "during_evidence_write": {
+        "baseline": {
+          "trials": 20,
+          "recovered": 20,
+          "mean_root_worker_calls": 2,
+          "mean_resume_seconds": 0.382,
+          "duplicate_completed_root_calls": null,
+          "stale_evidence_records": null,
+          "stale_claim_records": null
+        },
+        "reliable": {
+          "trials": 20,
+          "recovered": 20,
+          "mean_root_worker_calls": 2,
+          "mean_resume_seconds": 0.465,
+          "duplicate_completed_root_calls": null,
+          "stale_evidence_records": 0,
+          "stale_claim_records": 0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "timing": "After all generation and external evaluation completed",
+  "change": "None-safe comparison in summary acceptance check; no generation or judgment rerun",
+  "sha256": {
+    "experiments/runners/run_baseline.py": {
+      "frozen": "c2e32f1ab54961f25ba62abe33dc5ee2058d55110b53c43c6e163083007dad83",
+      "current": "a9d6940a7a1e742a354fc06c1802aa99b30e9b51b91469111960e5dc58ecfd3d"
+    }
+  },
+  "tests": "195 offline tests passed; 26 existing warnings",
+  "new_test": "tests/test_coverage_failure_record.py",
+  "new_test_sha256": "5ba957829f646a496b107c04b6713aa10114173eb1fadf141eb75cc85f3dc5a2",
+  "outcome": "The failed attempt remains failed; missing evidence remains a failure. Full repair/generation code for this run is in the frozen snapshot.",
+  "extra_api_calls": 0
+}

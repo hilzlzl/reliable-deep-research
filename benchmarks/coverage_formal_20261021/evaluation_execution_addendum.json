@@ -1,0 +1,14 @@
+{
+  "type": "Post-hoc execution addendum, recorded before additional request",
+  "reason": "The planned initial plus2missing-onlypasses left1saved Baseline report unjudged because exact point/claim IDs were incomplete",
+  "planned_extra_passes": 1,
+  "selection": "Only missing baseline:1:app_03; no accepted verdict selected for rejudging",
+  "preserved_judgments": 160,
+  "source_audit_sha256": "4be9283015e14ea87129673fb4ee726bf5c7bd5d14cad471ac3003a8a44a70dd",
+  "prompt_model_source_policy_changes": false,
+  "frozen_algorithm_changes": false,
+  "generation_reruns": 0,
+  "recorded_at_unix": 1792580949.455034,
+  "state": "failed_ID_transcription",
+  "recovery": "See evaluation_id_format_addendum.json"
+}

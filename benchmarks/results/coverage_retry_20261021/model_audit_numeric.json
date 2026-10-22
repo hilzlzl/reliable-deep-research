@@ -1,0 +1,1051 @@
+{
+  "schema_version": 1,
+  "source_file": "model_audit.json",
+  "source_sha256": "5b709bdc7c6db86ffddfb7765ce6026fa71c4b3b65c36cec42980c76a53757c6",
+  "scope": "Numeric export of the original model-assisted audit. Counts and verdicts can be re-aggregated; they cannot establish correctness without the original reports, source passages, and independent review.",
+  "method": {
+    "manifest": "benchmarks/coverage_retry_20261021/frozen_manifest.json",
+    "manifest_sha256": "d69b2652ae72e25c445b9490bf9626a3ca6daec583542115071911548c137727",
+    "judge": "gpt-6.1-sol",
+    "judge_type": "same_model_automatic_not_human",
+    "scope": "13 failure-selected attempts; development regression, not a full benchmark",
+    "comparison": "Original selected saved judgments vs new generation, same strict prompt and source extraction",
+    "short_ids": "All sampled original claim hashes mapped bijectively to c1..cN in prompt, then mapped back",
+    "max_judge_passes": 2,
+    "primary": "Only accepted reports count toward quality; every selected attempt stays in denominator",
+    "limits": "Failure-selected set with prior development exposure; no causal attribution or full-set improvement claim. Same-model automatic judge, assistant-authored references, no independent human validation."
+  },
+  "aggregate": {
+    "original_selected_primary": {
+      "attempts": 13,
+      "statuses": {
+        "degraded": 11,
+        "failed": 2
+      },
+      "judged_reports": 0,
+      "covered_points": 0,
+      "all_attempt_reference_points": 37,
+      "observed_coverage_all_attempts": 0.0,
+      "sampled_citations": 0,
+      "supported_citations": 0,
+      "citation_support_rate": null,
+      "judged_reports_without_extractable_citations": 0,
+      "successful_reports_not_judged": 0,
+      "unanswerable_attempts": 2,
+      "unanswerable_all_points_covered": 0
+    },
+    "retry_selected_primary": {
+      "attempts": 13,
+      "statuses": {
+        "succeeded": 12,
+        "failed": 1
+      },
+      "judged_reports": 12,
+      "covered_points": 30,
+      "all_attempt_reference_points": 37,
+      "observed_coverage_all_attempts": 0.8108108108108109,
+      "sampled_citations": 48,
+      "supported_citations": 46,
+      "citation_support_rate": 0.9583333333333334,
+      "judged_reports_without_extractable_citations": 0,
+      "successful_reports_not_judged": 0,
+      "unanswerable_attempts": 2,
+      "unanswerable_all_points_covered": 2
+    },
+    "original_selected_all_outputs_diagnostic": {
+      "attempts": 13,
+      "statuses": {
+        "degraded": 11,
+        "failed": 2
+      },
+      "judged_reports": 11,
+      "covered_points": 24,
+      "all_attempt_reference_points": 37,
+      "observed_coverage_all_attempts": 0.6486486486486487,
+      "sampled_citations": 43,
+      "supported_citations": 39,
+      "citation_support_rate": 0.9069767441860465,
+      "judged_reports_without_extractable_citations": 0,
+      "successful_reports_not_judged": 0,
+      "unanswerable_attempts": 2,
+      "unanswerable_all_points_covered": 1
+    },
+    "retry_selected_all_outputs_diagnostic": {
+      "attempts": 13,
+      "statuses": {
+        "succeeded": 12,
+        "failed": 1
+      },
+      "judged_reports": 12,
+      "covered_points": 30,
+      "all_attempt_reference_points": 37,
+      "observed_coverage_all_attempts": 0.8108108108108109,
+      "sampled_citations": 48,
+      "supported_citations": 46,
+      "citation_support_rate": 0.9583333333333334,
+      "judged_reports_without_extractable_citations": 0,
+      "successful_reports_not_judged": 0,
+      "unanswerable_attempts": 2,
+      "unanswerable_all_points_covered": 2
+    }
+  },
+  "runs": [
+    {
+      "id": "coverage_v2:1:cad_007",
+      "profile": "coverage_v2",
+      "repeat": 1,
+      "case_id": "cad_007",
+      "status": "succeeded",
+      "elapsed_seconds": 208.66,
+      "llm_calls": 13,
+      "search_calls": 2,
+      "prompt_tokens": 39323,
+      "completion_tokens": 8356,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": false
+          },
+          {
+            "point_id": 3,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-548708e02638",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-95b032b047a3",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-c3ca10ccfc3c",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:1:agent_08",
+      "profile": "coverage_v2",
+      "repeat": 1,
+      "case_id": "agent_08",
+      "status": "succeeded",
+      "elapsed_seconds": 403.138,
+      "llm_calls": 20,
+      "search_calls": 4,
+      "prompt_tokens": 72295,
+      "completion_tokens": 11887,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-a41f8785f8d8",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-3e2c30380dae",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-c92e41d3994d",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-532464f74024",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:1:app_06",
+      "profile": "coverage_v2",
+      "repeat": 1,
+      "case_id": "app_06",
+      "status": "succeeded",
+      "elapsed_seconds": 297.429,
+      "llm_calls": 13,
+      "search_calls": 2,
+      "prompt_tokens": 41036,
+      "completion_tokens": 9565,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          },
+          {
+            "point_id": 3,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-8af4161d1bd4",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-322aa277257d",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-07b496b099ed",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-e341ff882d1c",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-cf22249481b7",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:1:cad_004",
+      "profile": "coverage_v2",
+      "repeat": 1,
+      "case_id": "cad_004",
+      "status": "succeeded",
+      "elapsed_seconds": 230.497,
+      "llm_calls": 13,
+      "search_calls": 2,
+      "prompt_tokens": 39690,
+      "completion_tokens": 9028,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          },
+          {
+            "point_id": 3,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-90af0259031e",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-70238dae01c9",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-c374ca13315c",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-f8e89919f65e",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-decae8ebb56f",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:1:app_03",
+      "profile": "coverage_v2",
+      "repeat": 1,
+      "case_id": "app_03",
+      "status": "succeeded",
+      "elapsed_seconds": 205.242,
+      "llm_calls": 13,
+      "search_calls": 2,
+      "prompt_tokens": 37608,
+      "completion_tokens": 8469,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          },
+          {
+            "point_id": 3,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-d06973bdb216",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-0fb9806f5834",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-bcbb39693cc3",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:1:agent_02",
+      "profile": "coverage_v2",
+      "repeat": 1,
+      "case_id": "agent_02",
+      "status": "succeeded",
+      "elapsed_seconds": 428.531,
+      "llm_calls": 21,
+      "search_calls": 4,
+      "prompt_tokens": 76390,
+      "completion_tokens": 11017,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          },
+          {
+            "point_id": 3,
+            "covered": false
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-a1373ca52bb5",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-56fdaf08b667",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-6a93f46583df",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-e57e37a24470",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:1:eng_07",
+      "profile": "coverage_v2",
+      "repeat": 1,
+      "case_id": "eng_07",
+      "status": "succeeded",
+      "elapsed_seconds": 809.401,
+      "llm_calls": 28,
+      "search_calls": 4,
+      "prompt_tokens": 77941,
+      "completion_tokens": 9716,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          },
+          {
+            "point_id": 3,
+            "covered": false
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-413ec7d50246",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-699714c107f8",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-64bc1e2a2e1d",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-3e10e03ce2e5",
+            "verdict": "PARTIAL",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-64a64c68c87c",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:2:app_07",
+      "profile": "coverage_v2",
+      "repeat": 2,
+      "case_id": "app_07",
+      "status": "succeeded",
+      "elapsed_seconds": 400.656,
+      "llm_calls": 19,
+      "search_calls": 4,
+      "prompt_tokens": 64477,
+      "completion_tokens": 11721,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          },
+          {
+            "point_id": 3,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-337b32c41054",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-83032fbd5672",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-51250b29b548",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-dc4fce57b091",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-cc573dde8122",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:2:eng_08",
+      "profile": "coverage_v2",
+      "repeat": 2,
+      "case_id": "eng_08",
+      "status": "succeeded",
+      "elapsed_seconds": 238.501,
+      "llm_calls": 13,
+      "search_calls": 2,
+      "prompt_tokens": 37532,
+      "completion_tokens": 7534,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-920326d54f8f",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-c345b7e8fe67",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-627ed6188a94",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-77a6683a9e88",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:2:cad_007",
+      "profile": "coverage_v2",
+      "repeat": 2,
+      "case_id": "cad_007",
+      "status": "succeeded",
+      "elapsed_seconds": 409.163,
+      "llm_calls": 14,
+      "search_calls": 2,
+      "prompt_tokens": 46261,
+      "completion_tokens": 10607,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": false
+          },
+          {
+            "point_id": 3,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-29476427ab73",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-addba40ea5ca",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-263a5cc3e667",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:2:app_04",
+      "profile": "coverage_v2",
+      "repeat": 2,
+      "case_id": "app_04",
+      "status": "succeeded",
+      "elapsed_seconds": 176.184,
+      "llm_calls": 13,
+      "search_calls": 2,
+      "prompt_tokens": 37120,
+      "completion_tokens": 6466,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          },
+          {
+            "point_id": 3,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-8919ef870bc4",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-9f2448331844",
+            "verdict": "PARTIAL",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-e8c412660171",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              },
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-09c0d8255c22",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:2:app_03",
+      "profile": "coverage_v2",
+      "repeat": 2,
+      "case_id": "app_03",
+      "status": "succeeded",
+      "elapsed_seconds": 239.282,
+      "llm_calls": 14,
+      "search_calls": 2,
+      "prompt_tokens": 41886,
+      "completion_tokens": 8854,
+      "prompt_tokens_are_estimated": true,
+      "judgment": {
+        "points": [
+          {
+            "point_id": 1,
+            "covered": true
+          },
+          {
+            "point_id": 2,
+            "covered": true
+          },
+          {
+            "point_id": 3,
+            "covered": true
+          }
+        ],
+        "citations": [
+          {
+            "claim_id": "claim-77472ad54e7f",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-dd19e32ae8d3",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          },
+          {
+            "claim_id": "claim-77a835bb4a1c",
+            "verdict": "SUPPORTED",
+            "source_snippets": [
+              {
+                "in_fixed_corpus": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coverage_v2:2:agent_02",
+      "profile": "coverage_v2",
+      "repeat": 2,
+      "case_id": "agent_02",
+      "status": "failed",
+      "elapsed_seconds": 602.722,
+      "llm_calls": 15,
+      "search_calls": 3,
+      "prompt_tokens": 25498,
+      "completion_tokens": 2453,
+      "prompt_tokens_are_estimated": true,
+      "judgment": null
+    }
+  ]
+}
