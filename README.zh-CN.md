@@ -17,18 +17,56 @@
 - **有界反馈修复：** 保留已核实段落，根据当前审核意见修补答案与引用；最多 2 轮修复、2 个定向补搜任务，均受共享预算约束。
 - **执行有边界：** 并发任务共享调用、token、任务尝试和时间预算；保留验收检查、失败状态和事件轨迹。
 
+## 系统架构
+
+发布入口在本地进程中运行 LangGraph 工作流：Supervisor 分派研究任务，持久化运行时执行研究子图，报告流水线根据固定问题要点组织证据并进行审核与修复。
+
 ```mermaid
-flowchart LR
-    Q[研究问题] --> T[研究任务 DAG]
-    T --> S[(SQLite 任务结果与证据)]
-    Q --> C[固定问题要点]
-    S --> P[证据约束草稿]
-    C --> P
-    P --> R[段落语义与问题覆盖审核]
-    R --> A[报告与引用渲染]
-    R -. 有界补搜与修复 .-> T
-    S -. 复用已提交任务 .-> T
+flowchart TB
+    Q[研究问题]
+    subgraph Local[本地执行 · Python / LangGraph]
+        Entry["运行入口 · run_research<br/>配置 / 共享预算 / 结果验收"]
+        Brief["研究简报与问题拆解<br/>在读取证据前固定回答要点"]
+        Supervisor["Supervisor 编排<br/>研究分派 / 结果汇总"]
+        subgraph Runtime[持久化研究任务运行时]
+            Scheduler["DAG 调度器<br/>依赖检查 / 有界并发 / 重试与超时"]
+            Researcher["Researcher 子图<br/>检索 / 阅读 / 研究压缩"]
+        end
+        subgraph Reporting[面向问题的报告流水线]
+            Plan["回答规划与草稿<br/>问题要点 / 证据 ID / 缺口"]
+            Audit["报告审核<br/>段落语义支持 / 问题覆盖"]
+            Repair["有界反馈修复<br/>保留已核实段落 / 修补答案与引用"]
+            Render["引用渲染与来源审计<br/>由 Evidence ID 解析来源"]
+        end
+        Store[("SQLite · runtime.db<br/>任务状态与结果 / Document / Evidence")]
+        Shared["共享执行支持<br/>预算 / 模型配置 / 事件记录"]
+        Events[("events.jsonl<br/>执行事件 / 审核反馈 / 资源用量")]
+    end
+    Sources[搜索服务 / 本地语料]
+    LLM[配置的模型服务]
+    Output["报告与验收摘要<br/>report.md / summary.json"]
+
+    Q --> Entry --> Brief --> Supervisor
+    Supervisor <-->|ResearchTask / 任务结果| Scheduler
+    Scheduler --> Researcher
+    Researcher --> Sources
+    Researcher -->|持久化检索证据| Store
+    Scheduler <-->|提交结果 / 恢复成功任务| Store
+    Supervisor -->|研究结束| Plan
+    Brief -->|固定问题要点| Plan
+    Store -->|当前证据| Plan
+    Plan --> Audit --> Render
+    Audit -. 审核反馈 .-> Repair
+    Repair -->|再次审核| Audit
+    Plan -. 答案缺口补搜 .-> Scheduler
+    Repair -. 定向补搜 .-> Scheduler
+    Render --> Output
+    Runtime & Reporting -. 共享执行约束与服务 .-> Shared
+    Shared --> LLM
+    Shared --> Events
 ```
+
+图中分组表示同一进程内的模块，实线表示主要调用或数据关系，虚线表示反馈或共享支持关系。研究编排与报告阶段共用模型配置、事件记录和内存预算（RunBudget）；报告阶段最多进行 2 轮修复、总共 2 个定向补搜任务，规划和修复中的补搜合并计数。各阶段将执行与审核事件写入日志，入口保存验收摘要。
 
 恢复边界是研究任务，不包含整个 LangGraph 会话恢复，也不保证外部 API 恰好执行一次。证据链回答“来自哪里”，语义支持仍依赖可能出错的模型判断。[架构与设计取舍](docs/project_overview.zh-CN.md)。
 
