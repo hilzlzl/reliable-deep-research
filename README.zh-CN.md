@@ -6,7 +6,7 @@
 
 基于 [LangChain Open Deep Research](https://github.com/langchain-ai/open_deep_research) 的工程改进项目，使用 Python、LangGraph、asyncio、Pydantic 和 SQLite。上游提供研究编排和模型/工具集成，本项目增加持久化任务运行时与 **Evidence → 问题覆盖 → 已复核报告** 报告流水线。
 
-**Reliable Deep Research：可恢复、证据可追溯的深度研究系统。** 主线是持久化研究任务、面向问题的报告生成和有界语义修复；早期 Claim-first 方案仅作为评测对照。方案说明见[实验评测](docs/evaluation.zh-CN.md#experiment-identifiers)。
+**Reliable Deep Research：可恢复、证据可追溯的深度研究系统。** 主线是持久化研究任务、面向问题的报告生成和有界语义修复；早期 Claim-first 方案仅作为评测对照。实验设置与结果见[实验评测](docs/evaluation.zh-CN.md)。
 
 ## 解决什么问题
 
@@ -34,11 +34,11 @@ flowchart LR
 
 ## 实验结果
 
-30 道评测问题，每题独立运行 2 次（共 60 个评估槽位），评测共用 24 份固定参考来源。Repository Baseline（仓库基础版）与早期 Claim-first 方案保留原始尝试。
+**30 道问题、每题 2 个位置、24 份固定来源。** Repository Baseline（仓库基础版）与早期 Claim-first 方案保留原始尝试；本项目展示**替换后汇总：原 47 次通过记录 + 本次 13 次 Reliable Deep Research 重跑**，包含仍失败的 1 次。
 
-**Repository Baseline（仓库基础版）** 沿用上游 Open Deep Research 研究流程，保留仓库中的检索、模型接入和预算等实验适配。
- 
-| 指标 | Repository Baseline（仓库基础版） | Claim-first（早期方案） | Reliable Deep Research |
+**Repository Baseline（仓库基础版）**沿用上游 Open Deep Research 研究流程，关闭本项目新增的可靠运行时、证据审核与修复功能，但保留仓库中的检索、模型接入和预算等实验适配；这组结果不代表未经修改的官方原版成绩。
+
+| 指标 | Repository Baseline（仓库基础版） | Claim-first（早期方案） | Reliable Deep Research¹ |
 | --- | ---: | ---: | ---: |
 | 验收通过 | 52/60 | 51/60 | **59/60** |
 | 降级待复核 | 0 | 0 | **0** |
@@ -49,11 +49,11 @@ flowchart LR
 | 平均耗时（秒） | 404.9 | 667.6 | **319.3** |
 | 平均模型调用 | 9.52 | 19.42 | **15.25** |
 
-覆盖分子只统计通过报告，失败计零；引用支持来自每份报告最多 5 条陈述的抽样。参考要点由助手编写，生成和评审使用同一网关模型别名，尚无独立人工验证。表格展示本次开发后的实际交付结果；样本选择与配置变化限制了因果解释。[协议、逐点位来源与局限](docs/evaluation.zh-CN.md) · [全部 180 条评估样本](benchmarks/results/release_comparison.json)。
+¹ 这是两次覆盖版本实验合并后的开发汇总，60 个位置实际经历了 73 次生成尝试，并非全部使用发布配置新跑的 60 次验收。全部 13 个原未通过位置都被替换，包括重跑仍失败的位置，没有按最好分数挑选。平均耗时和调用只统计表中保留的 60 个位置，不包含被替换的原 13 次开销。
 
-独立的合成故障实验中，短暂异常和超时分别恢复 30/30 次；任务提交后的真实进程退出测试中，20/20 次重启复用了已完成任务，没有重复执行该任务。未完成尝试的重启测试验证了旧 Evidence/Claim 清理。[恢复实验](docs/recovery.zh-CN.md)。
+覆盖分子只统计通过报告，失败计零；引用支持来自每份报告最多 5 条陈述的抽样。参考要点由助手编写，生成和评审使用同一网关模型别名，尚无独立人工验证。表格展示本次开发后的实际交付结果；样本选择与配置变化限制了因果解释。[协议、逐位置来源与局限](docs/evaluation.zh-CN.md) · [全部 180 个对照位置](benchmarks/results/release_comparison.json)。
 
-
+独立的合成故障实验中，短暂异常和超时分别恢复 30/30 次；任务提交后的真实进程退出测试中，20/20 次重启复用了已完成任务，没有重复执行该任务。未完成尝试的重启测试验证了旧 Evidence/Claim 清理。[恢复实验](docs/evaluation.zh-CN.md#任务恢复实验)。
 
 ## 快速运行
 
@@ -85,5 +85,8 @@ uv run --frozen python -m experiments.runners.run_research --question "What are 
 | [run_research.py](experiments/runners/run_research.py) | 发布入口，复用已有研究执行与验收实现 |
 | `tests/`、[benchmarks/](benchmarks/README.zh-CN.md) | 离线回归、问题与来源元数据、数值证据 |
 
-[运行指南](docs/running.zh-CN.md) · [架构设计](docs/project_overview.zh-CN.md) · [实验评测](docs/evaluation.zh-CN.md) · [任务恢复](docs/recovery.zh-CN.md) · [发布说明](PUBLISHING.zh-CN.md)。原始语料、生成报告、数据库和缓存不随仓库发布。
+[运行指南](docs/running.zh-CN.md) · [架构设计](docs/project_overview.zh-CN.md) · [实验评测](docs/evaluation.zh-CN.md)。原始语料、生成报告、数据库和缓存不随仓库发布。
 
+## 上游归属
+
+本项目衍生自 LangChain Open Deep Research，上游研究图、提示词和供应商集成是基础；本项目贡献集中在任务恢复、证据追溯与评估。保留原始 [MIT 许可证](LICENSE) 与版权声明。Python 导入名沿用 `open_deep_research`，发行包名为 `reliable-open-deep-research`。

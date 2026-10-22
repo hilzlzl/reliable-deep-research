@@ -6,8 +6,6 @@
 .gitignore
 LICENSE
 MANIFEST.in
-PUBLISHING.md
-PUBLISHING.zh-CN.md
 README.md
 README.zh-CN.md
 benchmarks/README.md
@@ -39,8 +37,6 @@ docs/evaluation.md
 docs/evaluation.zh-CN.md
 docs/project_overview.md
 docs/project_overview.zh-CN.md
-docs/recovery.md
-docs/recovery.zh-CN.md
 docs/running.md
 docs/running.zh-CN.md
 experiments/README.md

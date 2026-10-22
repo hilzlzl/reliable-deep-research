@@ -2,11 +2,11 @@
 
 English | [简体中文](README.zh-CN.md)
 
-**Make research tasks recoverable, cover the question, and repair evidence and citation gaps within a bounded budget.**
+**Recover research tasks. Answer the question with traceable evidence. Repair gaps within a bounded budget.**
 
 An engineering extension of [LangChain Open Deep Research](https://github.com/langchain-ai/open_deep_research), built with Python, LangGraph, asyncio, Pydantic and SQLite. The upstream agent supplies research orchestration and provider integrations; this project adds durable task execution and an **Evidence → Question Coverage → Verified Report** pipeline.
 
-**Reliable Deep Research: a recoverable deep research system with traceable evidence.** Its mainline combines durable research tasks, question-oriented reporting and bounded semantic repair. The earlier Claim-first approach is retained only as an evaluation control. The approaches are described in the [evaluation protocol](docs/evaluation.md#experiment-identifiers).
+**Reliable Deep Research** combines durable research tasks, question-oriented reporting and bounded semantic repair. The earlier Claim-first approach is retained only as an evaluation control. Experiment settings and results are documented in the [evaluation guide](docs/evaluation.md).
 
 ## Problem and approach
 
@@ -14,7 +14,7 @@ Long research runs can lose completed work after a crash. Reports can also cite 
 
 - **Durable tasks:** a bounded DAG scheduler persists completed task results, retries failed work and invalidates stale evidence from unfinished attempts.
 - **Question-oriented reporting:** derive requirements before reading evidence, identify missing answers, audit report paragraphs against stored passages and render citations from Evidence IDs.
-- **Bounded repair:** preserve verified paragraphs and repair answers and citations from current audit feedback, with at most two repair rounds and two targeted gap tasks within shared budgets.
+- **Bounded repair:** preserve verified paragraphs, repair from current audit feedback, recheck citation edits, and allow at most two repair rounds and two targeted gap tasks within shared budgets.
 - **Bounded execution:** shared call, token, task-attempt and time budgets constrain concurrent researchers. Reports retain acceptance checks and inspectable failure records.
 
 ```mermaid
@@ -34,24 +34,26 @@ Recovery applies to research tasks. Whole-session LangGraph recovery and exactly
 
 ## Evaluation
 
-30 evaluation questions, each run independently twice (60 evaluation slots), share 24 fixed reference sources. Repository Baseline and the earlier Claim-first approach retain their original attempts.
+**30 questions, two slots per question, 24 fixed documents.** Repository Baseline and Claim-first retain all historical attempts. The released project is represented by a **replacement view: 47 original accepted runs + all 13 corresponding Reliable Deep Research reruns**, including one remaining failure.
 
-**Repository Baseline** follows the upstream Open Deep Research workflow and retains this repository's experimental adaptations for retrieval, model access and budgets.
+**Repository Baseline** uses the upstream Open Deep Research workflow within this repository, with our reliability runtime, evidence review and repair features disabled. It retains repository-specific experimental adaptations for retrieval, model access and budgets; these results are not from an unmodified official upstream release.
 
-| Metric | Repository Baseline | Claim-first (earlier approach) | Reliable Deep Research |
+| Metric | Repository Baseline | Claim-first (earlier approach) | Reliable Deep Research¹ |
 | --- | ---: | ---: | ---: |
-| Accepted | 52/60 | 51/60 | **59/60** |
+| Accepted / slots | 52/60 | 51/60 | **59/60** |
 | Degraded / needs review | 0 | 0 | **0** |
 | Failed or budget-exhausted | 8 | 9 | **1** |
 | Reference-point coverage, all slots | 80.4% | 64.9% | **88.7%** |
 | Coverage within accepted reports | 93.1% | 75.7% | **90.3%** |
 | Sampled citation statements judged supported | 60.9% | 96.1% | **93.6%** |
-| Mean seconds | 404.9 | 667.6 | **319.3** |
-| Mean model calls | 9.52 | 19.42 | **15.25** |
+| Mean seconds, including failures | 404.9 | 667.6 | **319.3** |
+| Mean model calls, including failures | 9.52 | 19.42 | **15.25** |
 
-Coverage numerators count accepted reports; failures contribute zero. Citation support samples at most five statements per report. The references are assistant-authored and judging uses the same gateway model alias as generation; independent human review is pending. The table shows the observed development outcome; sample selection and configuration changes limit causal interpretation. [Protocol, provenance and limitations](docs/evaluation.md) · [All 180 comparison slots](benchmarks/results/release_comparison.json).
+¹ A post-hoc development summary using two coverage revisions, not a fresh 60-attempt evaluation entirely on the released configuration. The coverage rounds consumed 73 generation attempts to fill these 60 slots. All 13 original unsuccessful slots are replaced, including the rerun that failed; no best-of selection is used. Aggregate time/calls describe the selected slots and exclude the cost of the 13 displaced original attempts.
 
-Separate synthetic recovery experiments recovered transient errors/timeouts in 30/30 trials each. In 20/20 process restarts after a task committed, Reliable reused that result without executing the task again; unfinished-attempt tests removed stale Evidence/Claims. [Recovery details](docs/recovery.md).
+Coverage numerators count accepted reports; failures contribute zero. Citation support samples at most five statements per report and is conditional on accepted reports with extractable citations. The references are assistant-authored and judging uses the same gateway model alias as generation; independent human review is pending. The replacement view shows the observed development outcome, with selection and configuration changes limiting causal interpretation. [Protocol, provenance and limitations](docs/evaluation.md) · [All 180 comparison slots](benchmarks/results/release_comparison.json).
+
+Separate synthetic recovery experiments recovered transient errors/timeouts in 30/30 trials each. In 20/20 process restarts after a task committed, Reliable reused that result without executing the task again; unfinished-attempt tests removed stale Evidence/Claims. [Recovery experiments](docs/evaluation.md#task-recovery-experiments).
 
 ## Try it
 
@@ -83,4 +85,8 @@ This makes paid model/search calls. The supported entry point uses defaults of 4
 | [run_research.py](experiments/runners/run_research.py) | Supported entry point; delegates to the existing run and acceptance engine |
 | `tests/`, [benchmarks/](benchmarks/README.md) | Offline regression checks, questions, source metadata and numeric evidence |
 
-[Running](docs/running.md) · [Architecture](docs/project_overview.md) · [Evaluation](docs/evaluation.md) · [Recovery](docs/recovery.md) · [Publishing](PUBLISHING.md). Raw corpora, generated reports, databases and caches are excluded.
+[Running](docs/running.md) · [Architecture](docs/project_overview.md) · [Evaluation](docs/evaluation.md). Raw corpora, generated reports, databases and caches are excluded.
+
+## Attribution
+
+Derived from LangChain Open Deep Research. The upstream graph, prompts and provider integrations remain the foundation. This fork's contributions focus on task recovery, evidence provenance and evaluation. The upstream [MIT license](LICENSE) and copyright notice are retained. Python imports remain `open_deep_research`; the distribution is `reliable-open-deep-research`.

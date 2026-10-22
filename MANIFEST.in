@@ -11,8 +11,6 @@ include .github/workflows/tests.yml
 include .gitignore
 include LICENSE
 include MANIFEST.in
-include PUBLISHING.md
-include PUBLISHING.zh-CN.md
 include README.md
 include README.zh-CN.md
 include benchmarks/README.md
@@ -44,8 +42,6 @@ include docs/evaluation.md
 include docs/evaluation.zh-CN.md
 include docs/project_overview.md
 include docs/project_overview.zh-CN.md
-include docs/recovery.md
-include docs/recovery.zh-CN.md
 include docs/running.md
 include docs/running.zh-CN.md
 include experiments/README.md
